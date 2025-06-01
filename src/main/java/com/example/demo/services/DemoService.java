@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,21 @@ public class DemoService {
     private AlunoRepository alunoRepository;
     @Autowired
     private CardapioDaSemanaRepository cardapioDaSemanaRepository;
-    
+
+    private void saveCardapios(CardapioDaSemana semana, List<CardapioDTO> cardapios) {
+        cardapios.forEach(cardapio -> {
+            Cardapio newCardapio = new Cardapio(cardapio, semana);
+            try {
+                cardapioRepository.save(newCardapio);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            cardapio.refeicoes().forEach(refeicao -> {
+                refeicaoRepository.save(new Refeicao(refeicao, newCardapio));
+            });
+        });
+    }
+
         public Cardapio getCardapio(LocalDate data_hoje) throws Exception {
             return cardapioRepository  
                     .findByData(data_hoje)
@@ -56,17 +71,7 @@ public class DemoService {
                 semana = new CardapioDaSemana();
             }
             semanaRepository.save(semana);
-            cardapios.forEach(cardapio -> {
-                Cardapio newCardapio = new Cardapio(cardapio, semana);
-                try {
-                    cardapioRepository.save(newCardapio);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
-                cardapio.refeicoes().forEach(refeicao -> {
-                    refeicaoRepository.save(new Refeicao(refeicao, newCardapio));
-                });
-            });
+            this.saveCardapios(semana, cardapios);
             return semana.getSemana_id();
         }
     
@@ -108,6 +113,10 @@ public class DemoService {
         public SemanaDTO getCardapioDaSemana(LocalDate data) throws Exception {
             CardapioDaSemana cardapio = cardapioDaSemanaRepository.getReferenceById(this.getCardapio(data).getCardapio_da_semana().getSemana_id());
             return new SemanaDTO(cardapio);
+        }
+
+        public void updateCardapio(List<CardapioDTO> updates) {
+            List<Cardapio> cardapios = new ArrayList<>();            
         }
 
 }

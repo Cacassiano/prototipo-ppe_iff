@@ -9,11 +9,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 @Entity(name = "requisicao")
 @Table(name = "requisicao_de_refeicao")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Requisicao {
     
     @Id @Column(nullable = false, unique = true, name = "req_id") @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +28,9 @@ public class Requisicao {
     @ManyToOne
     @JoinColumn(name = "refeicao_id")
     Refeicao refeicao;
+
+    public Requisicao(Refeicao refeicao, Aluno aluno) {
+        this.aluno = aluno;
+        this.refeicao = refeicao;
+    }
 }

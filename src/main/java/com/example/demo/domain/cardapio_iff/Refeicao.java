@@ -27,25 +27,25 @@ public class Refeicao {
     Long refeicao_id;
     
     @Column(nullable = true, unique = false, name = "tipo_refeicao", length = 12)
-    String tipo_refeicao;
+    String tipoRefeicao;
 
     @Column(nullable = false, name = "prato_principal")
-    String prato_principal;
+    String pratoPrincipal;
 
     @Column(nullable = true, unique = false, name = "bebida")
     String bebida;
 
     @ManyToOne
     @JoinColumn(name = "cardapio_id")
-    Cardapio cardapio_do_dia;
+    Cardapio cardapioDoDia;
 
     @OneToMany(mappedBy = "refeicao")
     List<Requisicao> requisicoes;
 
     public Refeicao(RefeicoesDTO dto, Cardapio cardapio) {
         this.bebida = dto.bebida();
-        this.prato_principal = dto.prato_principal();
-        this.tipo_refeicao = dto.tipo_refeicao();
-        this.cardapio_do_dia = cardapio;
+        this.pratoPrincipal = dto.prato_principal();
+        this.tipoRefeicao = dto.tipo_refeicao();
+        this.cardapioDoDia = cardapio;
     }
 }

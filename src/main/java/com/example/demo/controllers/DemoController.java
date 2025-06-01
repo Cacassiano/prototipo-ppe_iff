@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.cardapio_iff.Cardapio;
 import com.example.demo.dtos.cardapio.CardapioDTO;
+import com.example.demo.dtos.cardapio.RequisicaoDTO;
+import com.example.demo.dtos.cardapio.RequisicaoReqDTO;
 import com.example.demo.dtos.cardapio.RequisicoesPorTipoDTO;
 import com.example.demo.dtos.cardapio.SemanaDTO;
 import com.example.demo.services.DemoService;
@@ -48,5 +50,18 @@ public class DemoController {
         LocalDate data_hoje = LocalDate.now();
         RequisicoesPorTipoDTO requisicoes = service.requisicoesBytipo(tipo_refeicao, data_hoje);
         return ResponseEntity.ok(requisicoes);
+    }
+
+    @PostMapping("/requisicao/hoje/create")
+    public ResponseEntity<RequisicaoDTO> createRequisicao(@RequestBody RequisicaoReqDTO body) throws Exception {
+        if (body ==null || (body.matricula() == null || body.matricula().length() <10)) 
+            throw new Exception("Requisicao invalida");
+        RequisicaoDTO resp = service.createRequisicao(body);
+        return ResponseEntity.status(201).body(resp);
+    }
+
+    @GetMapping("/cardapio/semana/{data}")
+    public ResponseEntity<SemanaDTO> getCardapioDaSemana(@PathVariable LocalDate data) throws Exception {
+        return ResponseEntity.ok(service.getCardapioDaSemana(data));
     }
 }

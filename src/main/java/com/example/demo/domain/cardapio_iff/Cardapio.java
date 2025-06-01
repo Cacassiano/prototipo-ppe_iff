@@ -36,7 +36,7 @@ public class Cardapio {
     @JoinColumn(name = "semana_id")
     CardapioDaSemana cardapio_da_semana;
     
-    @OneToMany(mappedBy = "cardapio_do_dia")
+    @OneToMany(mappedBy = "cardapioDoDia")
     List<Refeicao> refeicoes;
 
     public Cardapio(CardapioDTO dto, CardapioDaSemana semana) {

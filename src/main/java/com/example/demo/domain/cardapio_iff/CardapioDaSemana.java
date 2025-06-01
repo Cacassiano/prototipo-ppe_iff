@@ -1,4 +1,4 @@
-package com.example.demo.entitys;
+package com.example.demo.domain.cardapio_iff;
 
 import java.util.List;
 
@@ -12,13 +12,13 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity(name = "CardapioDaSemana")
-@Table(name = "CardapioDaSemana")
+@Entity(name = "cardapio_da_semana")
+@Table(name = "cardapio_da_semana")
 @Getter
 @Setter
 public class CardapioDaSemana {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "semana_id")
-    Long semana_id;
+    @Id @GeneratedValue(strategy = GenerationType.UUID) @Column(name = "semana_id")
+    String semana_id;
 
     @OneToMany(mappedBy = "cardapio_da_semana")
     List<Cardapio> cardapios;

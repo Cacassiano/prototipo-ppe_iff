@@ -1,4 +1,4 @@
-package com.example.demo.entitys;
+package com.example.demo.domain.cardapio_iff;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

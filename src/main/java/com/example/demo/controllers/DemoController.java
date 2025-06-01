@@ -27,7 +27,25 @@ public class DemoController {
 
     @Autowired
     private DemoService service; 
-
+    @GetMapping
+    public String showHomePage() {
+        return "<html lang=\\\"pt-br\\\"><head>" +
+            "<meta charset=\\\"UTF-8\\\">" +
+            "<meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1.0\\\">" +
+            "<link rel=\\\"shortcut icon\\\" href=\\\"../favicon.ico\\\" type=\\\"image/x-icon\\\">" +
+            "<title>Saiba mais</title>" +
+            "</head><body>" +
+            "<h1>Minhas Redes</h1>" +
+            "<h2>Quem sou eu?</h2>" +
+            "<img alt=\\\"cachorro melancia\\\" height=\\\"150px\\\" width=\\\"150px\\\" src=\\\"https://pbs.twimg.com/profile_images/1293202325713100800/B9-b30wH_400x400.jpg\\\">" +
+            "<p>Eu sou um cachorro com uma melancia na cabeça... Não tenho nada a acrescentar só isso mesmo... Ah!! Leia isso: Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt incidunt nihil sit, ipsum sequi blanditiis provident voluptas. Earum, aliquam dicta itaque quaerat, accusamus, adipisci inventore eligendi necessitatibus similique ipsa dignissimos!</p>" +
+            "<h2>Contatos:</h2>" +
+            "<ul type=\\\"square\\\">" +
+            "<li>Canal do <a href=\\\"https://youtube.com/\\\" target=\\\"_blank\\\">youtube</a></li>" +
+            "<li>Perfil do <a target=\\\"_blank\\\" href=\\\"https://instagram.com\\\">instagram</a></li>" +
+            "<li>Meu perfil no <a href=\\\"https://github.com/cacassiano\\\" target=\\\"_blank\\\">GitHub</a></li>" +
+            "</ul></body></html>";
+    }
     @GetMapping("/cardapio/hoje")
     public ResponseEntity<CardapioDTO> getCardapioHoje() throws Exception {
         LocalDate data_hoje = LocalDate.now();
